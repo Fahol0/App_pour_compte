@@ -11,6 +11,7 @@ export default function MainLayout() {
           <div className="flex gap-4 font-bold text-sm text-slate-500 dark:text-slate-400">
             <Link to="/" className="hover:text-purple-600">Accueil</Link>
             <Link to="/dashboard" className="hover:text-purple-600">Dashboard</Link>
+            <Link to="/debts" className="hover:text-purple-600">Dettes</Link>
             <Link to="/settings" className="hover:text-purple-600">Paramètres</Link>
           </div>
         </div>

@@ -1,11 +1,14 @@
 # App_pour_compte
 
+## 📂 Structure du projet
+
+```text
 src/
-├── assets/          # Images/Icônes
-├── components/      # Boutons, Inputs, Cartes (UI réutilisable)
-├── context/         # Gestion des données (Le "cerveau" de l'app)
-├── layouts/         # Structure (Navbar, Footer, Sidebar)
-├── pages/           # Tes écrans (Home, Dashboard, Settings)
-├── utils/           # Calculs et formatage (ex: formater le prix)
-├── App.jsx          # Le routeur
-└── main.jsx         # Le point d'entrée
+├── 📁 assets/          # Ressources statiques (Images, Icônes)
+├── 📁 components/      # Composants UI réutilisables (Boutons, Cartes, Inputs)
+├── 📁 context/         # État global (Le "cerveau" de l'app - FinanceContext)
+├── 📁 layouts/         # Structures de page (Navbar, MainLayout)
+├── 📁 pages/           # Vues principales (Home, Dashboard, Settings)
+├── 📁 utils/           # Fonctions utilitaires (Formatage devises, calculs)
+├── 📄 App.jsx          # Configuration des routes
+└── 📄 main.jsx         # Point d'entrée React & Tailwind
