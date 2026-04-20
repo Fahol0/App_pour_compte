@@ -3,7 +3,7 @@ import React, { createContext, useState, useContext, useEffect } from 'react';
 const FinanceContext = createContext();
 
 export function FinanceProvider({ children }) {
-  // 1. Initialisation : on essaie de récupérer les données du LocalStorage
+  // 1. Initialisation
   const [transactions, setTransactions] = useState(() => {
     const saved = localStorage.getItem('money_transactions');
     return saved ? JSON.parse(saved) : [];
@@ -53,9 +53,8 @@ export function FinanceProvider({ children }) {
     setSubscriptions(subscriptions.filter(s => s.id !== id));
   };
   
-  // EXPORT : Télécharge un fichier JSON
   const exportData = () => {
-    const dataStr = JSON.stringify({ transactions, debts }, null, 2);
+    const dataStr = JSON.stringify({ transactions, debts, subscriptions }, null, 2);
     const dataBlob = new Blob([dataStr], { type: 'application/json' });
     const url = URL.createObjectURL(dataBlob);
     const link = document.createElement('a');
@@ -65,23 +64,24 @@ export function FinanceProvider({ children }) {
     URL.revokeObjectURL(url);
   };
 
-  // IMPORT : Lit un fichier JSON et remplace les transactions
   const importData = (file) => {
     if (!file) return;
     const reader = new FileReader();
     reader.onload = (e) => {
       try {
         const json = JSON.parse(e.target.result);
-        if (json.transactions && json.debts) {
-          setTransactions(json.transaction);
+        
+        if (json.transactions && json.debts && json.subscriptions) {
+          setTransactions(json.transactions); // Correction de la typo json.transaction -> json.transactions
           setDebts(json.debts);
+          setSubscriptions(json.subscriptions); // On restaure aussi les abos
+          alert("Restauration complète réussie !");
+        } 
+        else {
+          alert("Le fichier de sauvegarde semble incomplet ou ancien.");
         }
-        else if (Array.isArray(json)) {
-          setTransactions(json);
-        }
-        alert("Restauration réussie.")
       } catch (err) {
-        alert("Erreur fichier JSON invalide.");
+        alert("Erreur : fichier JSON invalide.");
       }
     };
     reader.readAsText(file);
