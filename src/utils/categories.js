@@ -5,5 +5,6 @@ export const CATEGORIES = [
   { id: 'leisure', label: 'Loisirs', icon: '🎮', color: 'bg-pink-100 text-pink-600' },
   { id: 'health', label: 'Santé', icon: '💊', color: 'bg-red-100 text-red-600' },
   { id: 'salary', label: 'Revenu', icon: '💰', color: 'bg-green-100 text-green-600' },
+  { id: 'finance', label: 'Banque & Prêts', icon: '🏦', color: 'bg-gray-100 text-gray-600' },
   { id: 'other', label: 'Divers', icon: '✨', color: 'bg-slate-100 text-slate-600' },
 ];

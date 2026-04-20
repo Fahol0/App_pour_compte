@@ -12,14 +12,18 @@ export default function TransactionForm() {
     e.preventDefault();
     if (!label || !amount) return;
     
+    const isoDate = new Date().toISOString().split('T')[0];
+
     addTransaction({
       id: Date.now(),
       label,
       amount: parseFloat(amount),
-      date: new Date().toLocaleDateString('fr-FR'),
+      date: isoDate,
       categoryId
     });
-    setLabel(''); setAmount('');
+    
+    setLabel(''); 
+    setAmount('');
   };
 
   return (

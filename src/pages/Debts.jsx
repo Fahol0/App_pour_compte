@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useFinance } from '../context/FinanceContext';
+import { CATEGORIES } from '../utils/categories';
 
 export default function Debts() {
   const { 
@@ -12,7 +13,7 @@ export default function Debts() {
     contact: '', amount: '', dueDate: '', type: 'to_pay'
   });
   const [subForm, setSubForm] = useState({
-    name: '', amount: '', day: '1', category: 'Abonnement'
+    name: '', amount: '', day: '1', categoryId: 'logement'
   });
 
   const handleDebtSubmit = (e) => {
@@ -26,7 +27,7 @@ export default function Debts() {
     e.preventDefault();
     if (!subForm.name || !subForm.amount) return;
     addSubscription({ ...subForm, amount: parseFloat(subForm.amount) });
-    setSubForm({ name: '', amount: '', day: '1', category: 'Abonnement' });
+    setSubForm({ name: '', amount: '', day: '1', categoryId: 'logement' });
   };
 
   // Calcul du total des charges mensuelles fixes
@@ -110,8 +111,8 @@ export default function Debts() {
             <form onSubmit={handleSubSubmit} className="bg-white dark:bg-slate-900 p-6 rounded-[32px] border border-slate-100 dark:border-slate-800 shadow-sm space-y-4 animate-in fade-in duration-300">
               <h2 className="font-bold text-xl mb-4 dark:text-white">Nouveau Prélèvement</h2>
               <input 
-                type="text" placeholder="Ex: Loyer, Prêt Auto, Netflix..."
-                className="w-full p-3 rounded-2xl bg-slate-50 dark:bg-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-purple-500"
+                type="text" placeholder="Ex: Loyer, Netflix..."
+                className="w-full p-3 rounded-2xl bg-slate-50 dark:bg-slate-800 dark:text-white outline-none"
                 value={subForm.name}
                 onChange={(e) => setSubForm({...subForm, name: e.target.value})}
               />
@@ -123,13 +124,25 @@ export default function Debts() {
                   onChange={(e) => setSubForm({...subForm, amount: e.target.value})}
                 />
                 <input 
-                  type="number" placeholder="Jour (1-31)" min="1" max="31"
+                  type="number" placeholder="Jour" min="1" max="31"
                   className="w-full p-3 rounded-2xl bg-slate-50 dark:bg-slate-800 dark:text-white outline-none"
                   value={subForm.day}
                   onChange={(e) => setSubForm({...subForm, day: e.target.value})}
                 />
               </div>
-              <button type="submit" className="w-full py-4 bg-blue-600 text-white rounded-2xl font-bold shadow-lg">Enregistrer le prélèvement</button>
+              
+              {/* NOUVEAU : Sélection de la catégorie pour la mensualité */}
+              <select 
+                className="w-full p-3 rounded-2xl bg-slate-50 dark:bg-slate-800 dark:text-white outline-none font-bold"
+                value={subForm.categoryId}
+                onChange={(e) => setSubForm({...subForm, categoryId: e.target.value})}
+              >
+                {CATEGORIES.map(c => (
+                  <option key={c.id} value={c.id}>{c.icon} {c.label}</option>
+                ))}
+              </select>
+
+              <button type="submit" className="w-full py-4 bg-blue-600 text-white rounded-2xl font-bold shadow-lg">Enregistrer</button>
             </form>
           )}
         </section>
