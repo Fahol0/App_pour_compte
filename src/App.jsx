@@ -10,7 +10,7 @@ import Debts from "./pages/Debts"
 export default function App() {
   return (
     <FinanceProvider>
-      <Router>
+      <Router basename="/App_pour_compte">
         <Routes>
           <Route path="/" element={<MainLayout />}>
             <Route index element={<Home />} />
